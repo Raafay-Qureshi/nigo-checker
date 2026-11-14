@@ -1,0 +1,12 @@
+.env
+node_modules/
+__pycache__/
+*.pyc
+fixtures/pdf/
+app/audit.jsonl
+.venv/
+
+# Internal planning / application artifacts — not part of the project
+PLAN.md
+EXECUTION.md
+.pi/
