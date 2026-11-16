@@ -1,0 +1,28 @@
+{
+  "id": "p01",
+  "account": { "type": "individual", "registration_name": "Jane A Carter" },
+  "owner": {
+    "full_name": "Jane A Carter",
+    "dob": "1985-03-12",
+    "ssn": "501-23-4567",
+    "address": "88 Birch Lane, Springfield, IL 62704",
+    "phone": "217-555-0142",
+    "email": "jane.carter@example.com",
+    "employer": "Oakline Design Co",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Jane A Carter",
+    "address": "88 Birch Lane, Springfield, IL 62704",
+    "dob": "1985-03-12",
+    "expiry": "2029-03-12"
+  },
+  "beneficiaries": [
+    { "name": "Mark Carter", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Ellen Park", "phone": "217-555-0199" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-10" },
+  "confidence": {},
+  "_meta": { "clean": true, "planted": null, "note": "Clean individual account, no transfer." }
+}

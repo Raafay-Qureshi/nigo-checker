@@ -1,0 +1,28 @@
+{
+  "id": "p12",
+  "account": { "type": "individual", "registration_name": "Oliver Nash" },
+  "owner": {
+    "full_name": "Oliver Nash",
+    "dob": "1984-10-28",
+    "ssn": "511-23-4567",
+    "address": "18 Hawthorn Ct, Kansas City, MO 64106",
+    "phone": "816-555-0139",
+    "email": "oliver.nash@example.com",
+    "employer": "Midland Tool",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Oliver Nash",
+    "address": "18 Hawthorn Ct, Kansas City, MO 64106",
+    "dob": "1984-10-28",
+    "expiry": "2029-04-02"
+  },
+  "beneficiaries": [
+    { "name": "Rita Nash", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Sam Nash", "phone": "816-555-0181" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-06" },
+  "confidence": { "owner.ssn": 0.42 },
+  "_meta": { "clean": true, "planted": "lowconf", "note": "All rules pass, but the SSN prints smudged/garbled, so extraction confidence on owner.ssn is low (0.42) and the packet routes to review on the confidence gate, not a rule failure. make_pdfs.py renders the SSN with a garble marker." }
+}

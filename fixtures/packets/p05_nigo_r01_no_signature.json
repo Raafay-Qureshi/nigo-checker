@@ -1,0 +1,28 @@
+{
+  "id": "p05",
+  "account": { "type": "individual", "registration_name": "Karen L Ellis" },
+  "owner": {
+    "full_name": "Karen L Ellis",
+    "dob": "1982-09-09",
+    "ssn": "505-67-8901",
+    "address": "40 Pine Road, Denver, CO 80202",
+    "phone": "303-555-0151",
+    "email": "karen.ellis@example.com",
+    "employer": "Front Range Media",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Karen L Ellis",
+    "address": "40 Pine Road, Denver, CO 80202",
+    "dob": "1982-09-09",
+    "expiry": "2029-09-09"
+  },
+  "beneficiaries": [
+    { "name": "Paul Ellis", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Dana Cole", "phone": "303-555-0177" },
+  "transfer": null,
+  "signature": { "present": false, "date": null },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R01", "note": "Owner signature missing and undated -> R01 block." }
+}

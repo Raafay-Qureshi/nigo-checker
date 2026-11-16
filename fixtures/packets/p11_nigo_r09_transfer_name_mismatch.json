@@ -1,0 +1,28 @@
+{
+  "id": "p11",
+  "account": { "type": "traditional_ira", "registration_name": "Sophia Grant" },
+  "owner": {
+    "full_name": "Sophia Grant",
+    "dob": "1980-06-17",
+    "ssn": "510-12-3456",
+    "address": "33 Sycamore St, Nashville, TN 37203",
+    "phone": "615-555-0124",
+    "email": "sophia.grant@example.com",
+    "employer": "Cumberland Press",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Sophia Grant",
+    "address": "33 Sycamore St, Nashville, TN 37203",
+    "dob": "1980-06-17",
+    "expiry": "2028-10-10"
+  },
+  "beneficiaries": [
+    { "name": "Nathan Grant", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Ivy Grant", "phone": "615-555-0162" },
+  "transfer": { "holder_name": "Sophia G Whitfield", "source_account_type": "traditional_ira", "account_number": "TRAD-440027" },
+  "signature": { "present": true, "date": "2026-11-07" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R09", "note": "Transfer statement holder 'Sophia G Whitfield' does not match owner 'Sophia Grant' -> R09 block." }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "p07",
+  "account": { "type": "individual", "registration_name": "Angela M Ford" },
+  "owner": {
+    "full_name": "Angela M Ford",
+    "dob": "1988-12-01",
+    "ssn": "507-89-0123",
+    "address": "61 Spruce Way, Raleigh, NC 27601",
+    "phone": "919-555-0133",
+    "email": "angela.ford@example.com",
+    "employer": "Triangle Analytics",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Angela Michelle Thompson",
+    "address": "61 Spruce Way, Raleigh, NC 27601",
+    "dob": "1988-12-01",
+    "expiry": "2028-12-01"
+  },
+  "beneficiaries": [
+    { "name": "Brian Ford", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Gail Ford", "phone": "919-555-0166" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-09" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R04", "note": "ID surname Thompson does not match application surname Ford -> R04 block (not just a middle-name difference)." }
+}

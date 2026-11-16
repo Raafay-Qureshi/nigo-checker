@@ -1,0 +1,29 @@
+{
+  "id": "p02",
+  "account": { "type": "joint", "registration_name": "Luis and Rosa Medina" },
+  "owner": {
+    "full_name": "Luis Medina",
+    "dob": "1978-07-30",
+    "ssn": "502-34-5678",
+    "address": "14 Cedar Court, Madison, WI 53703",
+    "phone": "608-555-0171",
+    "email": "luis.medina@example.com",
+    "employer": "Harborview Logistics",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Luis Medina",
+    "address": "14 Cedar Court, Madison, WI 53703",
+    "dob": "1978-07-30",
+    "expiry": "2030-01-05"
+  },
+  "beneficiaries": [
+    { "name": "Rosa Medina", "relationship": "spouse", "type": "primary", "percent": 60 },
+    { "name": "Diego Medina", "relationship": "child", "type": "primary", "percent": 40 }
+  ],
+  "trusted_contact": { "name": "Carmen Ruiz", "phone": "608-555-0133" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-05" },
+  "confidence": {},
+  "_meta": { "clean": true, "planted": null, "note": "Clean joint account; two primary beneficiaries summing to 100." }
+}

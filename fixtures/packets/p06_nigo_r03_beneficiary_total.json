@@ -1,0 +1,29 @@
+{
+  "id": "p06",
+  "account": { "type": "individual", "registration_name": "Victor Hale" },
+  "owner": {
+    "full_name": "Victor Hale",
+    "dob": "1975-01-18",
+    "ssn": "506-78-9012",
+    "address": "9 Elm Street, Columbus, OH 43215",
+    "phone": "614-555-0118",
+    "email": "victor.hale@example.com",
+    "employer": "Scioto Tooling",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Victor Hale",
+    "address": "9 Elm Street, Columbus, OH 43215",
+    "dob": "1975-01-18",
+    "expiry": "2027-02-28"
+  },
+  "beneficiaries": [
+    { "name": "Sara Hale", "relationship": "spouse", "type": "primary", "percent": 60 },
+    { "name": "Leo Hale", "relationship": "child", "type": "primary", "percent": 30 }
+  ],
+  "trusted_contact": { "name": "Mona Reed", "phone": "614-555-0144" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-08" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R03", "note": "Primary beneficiaries total 90%, not 100% -> R03 block." }
+}

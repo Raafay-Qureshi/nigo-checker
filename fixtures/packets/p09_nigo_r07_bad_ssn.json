@@ -1,0 +1,28 @@
+{
+  "id": "p09",
+  "account": { "type": "individual", "registration_name": "Monica Reyes" },
+  "owner": {
+    "full_name": "Monica Reyes",
+    "dob": "1993-02-14",
+    "ssn": "901-22-3333",
+    "address": "5 Juniper Lane, Phoenix, AZ 85003",
+    "phone": "602-555-0147",
+    "email": "monica.reyes@example.com",
+    "employer": "Sonoran Labs",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Monica Reyes",
+    "address": "5 Juniper Lane, Phoenix, AZ 85003",
+    "dob": "1993-02-14",
+    "expiry": "2030-02-14"
+  },
+  "beneficiaries": [
+    { "name": "Hector Reyes", "relationship": "parent", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Ana Reyes", "phone": "602-555-0188" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-11" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R07", "note": "SSN 901-22-3333 is in the 9xx area (never issued) -> invalid format -> R07 block. Doubles as a safe synthetic number." }
+}

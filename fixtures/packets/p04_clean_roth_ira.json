@@ -1,0 +1,29 @@
+{
+  "id": "p04",
+  "account": { "type": "roth_ira", "registration_name": "Thomas R Boyd" },
+  "owner": {
+    "full_name": "Thomas R Boyd",
+    "dob": "1990-05-21",
+    "ssn": "504-56-7890",
+    "address": "223 Walnut Ave, Portland, OR 97205",
+    "phone": "503-555-0164",
+    "email": "thomas.boyd@example.com",
+    "employer": "Cascade Software",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Thomas R Boyd",
+    "address": "223 Walnut Ave, Portland, OR 97205",
+    "dob": "1990-05-21",
+    "expiry": "2031-05-21"
+  },
+  "beneficiaries": [
+    { "name": "Grace Boyd", "relationship": "spouse", "type": "primary", "percent": 50 },
+    { "name": "Owen Boyd", "relationship": "child", "type": "primary", "percent": 50 }
+  ],
+  "trusted_contact": { "name": "Henry Lowe", "phone": "503-555-0109" },
+  "transfer": { "holder_name": "Thomas R Boyd", "source_account_type": "roth_ira", "account_number": "ROTH-330871" },
+  "signature": { "present": true, "date": "2026-11-14" },
+  "confidence": {},
+  "_meta": { "clean": true, "planted": null, "note": "Clean Roth IRA with a matching Roth-IRA transfer." }
+}

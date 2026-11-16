@@ -1,0 +1,28 @@
+{
+  "id": "p08",
+  "account": { "type": "individual", "registration_name": "Derek S Pope" },
+  "owner": {
+    "full_name": "Derek S Pope",
+    "dob": "1971-04-25",
+    "ssn": "508-90-1234",
+    "address": "102 Ash Blvd, Tampa, FL 33602",
+    "phone": "813-555-0129",
+    "email": "derek.pope@example.com",
+    "employer": "Bayline Freight",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Derek S Pope",
+    "address": "102 Ash Blvd, Tampa, FL 33602",
+    "dob": "1971-04-25",
+    "expiry": "2026-11-01"
+  },
+  "beneficiaries": [
+    { "name": "Linda Pope", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Carl Pope", "phone": "813-555-0155" },
+  "transfer": null,
+  "signature": { "present": true, "date": "2026-11-10" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R05", "note": "ID expired 2026-11-01, before the signature date 2026-11-10 -> R05 block." }
+}

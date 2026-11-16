@@ -1,0 +1,29 @@
+{
+  "id": "p03",
+  "account": { "type": "traditional_ira", "registration_name": "Priya N Shah" },
+  "owner": {
+    "full_name": "Priya N Shah",
+    "dob": "1969-11-02",
+    "ssn": "503-45-6789",
+    "address": "7 Maple Street, Austin, TX 78701",
+    "phone": "512-555-0120",
+    "email": "priya.shah@example.com",
+    "employer": "Lumen Health Partners",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Priya N Shah",
+    "address": "7 Maple Street, Austin, TX 78701",
+    "dob": "1969-11-02",
+    "expiry": "2028-06-18"
+  },
+  "beneficiaries": [
+    { "name": "Anand Shah", "relationship": "spouse", "type": "primary", "percent": 100 },
+    { "name": "Nina Shah", "relationship": "child", "type": "contingent", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Raj Patel", "phone": "512-555-0188" },
+  "transfer": { "holder_name": "Priya N Shah", "source_account_type": "traditional_ira", "account_number": "TRAD-559201" },
+  "signature": { "present": true, "date": "2026-11-12" },
+  "confidence": {},
+  "_meta": { "clean": true, "planted": null, "note": "Clean traditional IRA with a matching traditional-IRA transfer; primary and contingent each total 100." }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "p10",
+  "account": { "type": "roth_ira", "registration_name": "Walter Kim" },
+  "owner": {
+    "full_name": "Walter Kim",
+    "dob": "1966-08-03",
+    "ssn": "509-01-2345",
+    "address": "77 Poplar Dr, Seattle, WA 98101",
+    "phone": "206-555-0136",
+    "email": "walter.kim@example.com",
+    "employer": "Puget Systems",
+    "affiliated_with_broker_dealer": "no"
+  },
+  "id_document": {
+    "name": "Walter Kim",
+    "address": "77 Poplar Dr, Seattle, WA 98101",
+    "dob": "1966-08-03",
+    "expiry": "2029-08-03"
+  },
+  "beneficiaries": [
+    { "name": "Susan Kim", "relationship": "spouse", "type": "primary", "percent": 100 }
+  ],
+  "trusted_contact": { "name": "Grace Lin", "phone": "206-555-0190" },
+  "transfer": { "holder_name": "Walter Kim", "source_account_type": "traditional_ira", "account_number": "TRAD-771004" },
+  "signature": { "present": true, "date": "2026-11-13" },
+  "confidence": {},
+  "_meta": { "clean": false, "planted": "R08", "note": "Roth IRA account funded from a traditional-IRA transfer -> type mismatch -> R08 block." }
+}
