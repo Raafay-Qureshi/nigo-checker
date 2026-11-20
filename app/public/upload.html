@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NIGO Checker — Upload</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+    h1 { margin-bottom: .2rem; }
+    .note { color: #666; font-size: 13px; margin-top: 0; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+    button { background: #1a5; color: #fff; border: 0; padding: .55rem 1rem; border-radius: 6px; cursor: pointer; font-size: 15px; }
+    button:disabled { background: #999; cursor: default; }
+    .pass { color: #1a7f37; font-weight: 600; }
+    .review { color: #b35900; font-weight: 600; }
+    .fail { color: #b32020; }
+    .warn { color: #b35900; }
+    pre { background: #f6f6f6; padding: .6rem; border-radius: 6px; white-space: pre-wrap; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    td, th { border-bottom: 1px solid #eee; text-align: left; padding: .35rem .5rem; }
+    a { color: #1a5; }
+  </style>
+</head>
+<body>
+  <h1>NIGO Checker</h1>
+  <p class="note">Demo / prototype, not affiliated with any brokerage or custodian. All data synthetic.
+    &nbsp;·&nbsp; <a href="/review.html">Review queue →</a></p>
+
+  <div class="card">
+    <p>Upload a new-account packet (application, ID, and optional transfer PDF).</p>
+    <input id="files" type="file" accept="application/pdf" multiple />
+    <p><button id="go">Check packet</button></p>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const resultEl = document.getElementById('result');
+    document.getElementById('go').addEventListener('click', async () => {
+      const input = document.getElementById('files');
+      if (!input.files.length) { resultEl.innerHTML = '<p class="fail">Pick at least one PDF.</p>'; return; }
+      const btn = document.getElementById('go'); btn.disabled = true; btn.textContent = 'Checking…';
+      const fd = new FormData();
+      for (const f of input.files) fd.append('files', f);
+      try {
+        const res = await fetch('/upload', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Upload failed');
+        render(data);
+      } catch (e) {
+        resultEl.innerHTML = '<p class="fail">' + e.message + '</p>';
+      } finally { btn.disabled = false; btn.textContent = 'Check packet'; }
+    });
+
+    function render(d) {
+      const ev = d.evaluation;
+      const head = d.decision === 'pass'
+        ? '<span class="pass">PASS — all rules clear, submitted to custodian.</span>'
+        : '<span class="review">ROUTED TO REVIEW — ' + d.id + '</span>';
+      const rows = ev.results.map(r => {
+        const cls = r.pass ? '' : (r.severity === 'warn' ? 'warn' : 'fail');
+        const status = r.pass ? 'pass' : (r.severity === 'warn' ? 'warn' : 'BLOCK');
+        return '<tr><td>' + r.id + '</td><td class="' + cls + '">' + status + '</td><td>' +
+          (r.message || r.description) + '</td></tr>';
+      }).join('');
+      const lowconf = ev.lowConfidence.length ? '<p class="review">Low-confidence fields: ' + ev.lowConfidence.join(', ') + '</p>' : '';
+      resultEl.innerHTML = '<div class="card"><p>' + head + '</p>' + lowconf +
+        '<pre>' + d.summary + '</pre>' +
+        '<table><tr><th>Rule</th><th>Status</th><th>Detail</th></tr>' + rows + '</table>' +
+        (d.decision !== 'pass' ? '<p><a href="/review.html">Open the review queue →</a></p>' : '') +
+        '</div>';
+    }
+  </script>
+</body>
+</html>

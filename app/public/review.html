@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NIGO Checker — Review queue</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+    h1 { margin-bottom: .2rem; }
+    .note { color: #666; font-size: 13px; margin-top: 0; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+    button { border: 0; padding: .45rem .9rem; border-radius: 6px; cursor: pointer; font-size: 14px; color: #fff; }
+    .b-approve { background: #1a7f37; } .b-reject { background: #b32020; } .b-rerun { background: #345; }
+    button:disabled { background: #999; }
+    .fail { color: #b32020; } .pass { color: #1a7f37; font-weight: 600; } .review { color: #b35900; font-weight: 600; }
+    pre { background: #f6f6f6; padding: .6rem; border-radius: 6px; white-space: pre-wrap; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    td, th { border-bottom: 1px solid #eee; text-align: left; padding: .35rem .5rem; }
+    input[type=text] { padding: .3rem; width: 16rem; }
+    a { color: #1a5; }
+  </style>
+</head>
+<body>
+  <h1>Review queue</h1>
+  <p class="note">Unofficial demo, synthetic data. &nbsp;·&nbsp; <a href="/upload.html">← Upload</a>
+    &nbsp;·&nbsp; <a href="/audit" target="_blank">Audit log (JSON)</a></p>
+  <div id="queue"></div>
+  <div id="detail"></div>
+
+  <script>
+    const queueEl = document.getElementById('queue');
+    const detailEl = document.getElementById('detail');
+
+    async function loadQueue() {
+      detailEl.innerHTML = '';
+      const q = await (await fetch('/review')).json();
+      if (!q.length) { queueEl.innerHTML = '<div class="card">Queue is empty. Upload a packet that has an issue.</div>'; return; }
+      queueEl.innerHTML = '<div class="card"><table><tr><th>ID</th><th>Registration</th><th>Issues</th><th></th></tr>' +
+        q.map(r => {
+          const issues = r.blocking.map(b => b.id).concat(r.lowConfidence.map(f => 'lowconf:' + f)).join(', ') || '—';
+          return '<tr><td>' + r.id + '</td><td>' + (r.registration || '') + '</td><td class="fail">' + issues +
+            '</td><td><button class="b-rerun" onclick="openItem(\'' + r.id + '\')">Open</button></td></tr>';
+        }).join('') + '</table></div>';
+    }
+
+    async function openItem(id) {
+      const r = await (await fetch('/review/' + id)).json();
+      renderDetail(r);
+    }
+    window.openItem = openItem;
+
+    function renderDetail(r) {
+      const ev = r.evaluation;
+      const fields = ev.blockingFailures.flatMap(b => b.fields);
+      const lowFields = ev.lowConfidence;
+      const editable = [...new Set([...fields, ...lowFields])];
+      const editors = editable.map(f =>
+        '<tr><td>' + f + '</td><td><input type="text" id="f_' + f.replace(/\./g, '_') + '" value="' + (getPath(r.packet, f) ?? '') +
+        '" /></td><td><button class="b-rerun" onclick="saveField(\'' + r.id + '\',\'' + f + '\')">Save &amp; re-run</button></td></tr>'
+      ).join('');
+      const rows = ev.results.map(x => '<tr><td>' + x.id + '</td><td class="' + (x.pass ? 'pass' : 'fail') + '">' +
+        (x.pass ? 'pass' : (x.severity === 'warn' ? 'warn' : 'BLOCK')) + '</td><td>' + (x.message || x.description) + '</td></tr>').join('');
+      const canApprove = ev.decision === 'pass';
+      detailEl.innerHTML = '<div class="card"><h3>' + r.id + ' — ' + (r.packet.account?.registration_name || '') + '</h3>' +
+        '<p class="' + (canApprove ? 'pass' : 'review') + '">Decision: ' + ev.decision + '</p>' +
+        '<pre>' + summary(ev) + '</pre>' +
+        (editors ? '<h4>Fix fields</h4><table>' + editors + '</table>' : '') +
+        '<h4>Rules</h4><table><tr><th>Rule</th><th>Status</th><th>Detail</th></tr>' + rows + '</table>' +
+        '<p style="margin-top:1rem">' +
+          '<button class="b-approve" ' + (canApprove ? '' : 'disabled') + ' onclick="approve(\'' + r.id + '\')">Approve &amp; submit</button> ' +
+          '<button class="b-reject" onclick="reject(\'' + r.id + '\')">Reject</button></p>' +
+        (canApprove ? '' : '<p class="note">Resolve all blocking issues before you can submit.</p>') +
+        '</div>';
+    }
+
+    function summary(ev) {
+      const lines = ev.blockingFailures.map(r => '- [' + r.id + '] ' + r.message)
+        .concat(ev.lowConfidence.map(f => '- [low confidence] Please confirm "' + f + '".'));
+      return lines.length ? 'Fix these before resubmitting:\n' + lines.join('\n') : 'No blocking issues. In good order.';
+    }
+    function getPath(o, d) { return d.split('.').reduce((x, k) => (x == null ? undefined : x[k]), o); }
+
+    async function saveField(id, path) {
+      const val = document.getElementById('f_' + path.replace(/\./g, '_')).value;
+      const res = await fetch('/review/' + id + '/field', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, value: val, actor: 'ops' }) });
+      const data = await res.json();
+      const r = await (await fetch('/review/' + id)).json();
+      renderDetail(r);
+    }
+    window.saveField = saveField;
+
+    async function approve(id) {
+      const res = await fetch('/review/' + id + '/approve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      const data = await res.json();
+      if (!res.ok) { alert(data.error || 'Cannot submit'); return; }
+      alert('Submitted to custodian: ' + id); loadQueue();
+    }
+    window.approve = approve;
+
+    async function reject(id) {
+      const reason = prompt('Reason for rejecting?'); if (reason === null) return;
+      await fetch('/review/' + id + '/reject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reason, actor: 'ops' }) });
+      loadQueue();
+    }
+    window.reject = reject;
+
+    loadQueue();
+  </script>
+</body>
+</html>
